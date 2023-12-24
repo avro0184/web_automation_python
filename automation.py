@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 import re
 
 def generateurl():
-    excel_file_path = 'output/output_res.xlsx'
+    excel_file_path = 'input.xlsx'
     df_excel = pd.read_excel(excel_file_path)
     # data={"Website": [], "Total search result":[],"Time & Date":[] }
     for _, row in df_excel.iterrows():
@@ -23,8 +23,6 @@ def generateurl():
                 result_count = re.search(r'\d+', result_stats.text)
                 if result_count:
                     count_value = int(result_count.group())
-                    print(url)
-                    print(count_value)
                     current_datetime = datetime.now()
                     formatted_date = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
                     data={"Website": [], "Total search result":[],"Time & Date":[] }
@@ -34,8 +32,8 @@ def generateurl():
                     result_df = pd.DataFrame(data)
                     result_df.to_excel('output/output_11.xlsx', index=False)
 
-    # result_df = pd.DataFrame(data)
-    # result_df.to_excel('output/output_11.xlsx', index=False)
+    result_df = pd.DataFrame(data)
+    result_df.to_excel('output.xlsx', index=False)
 
 
 generateurl()
